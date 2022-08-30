@@ -1,7 +1,8 @@
-<p>
+<body class="body">
+
   <mat-toolbar color="primary">
 
-    <button class="icon-button" aria-label="Example icon-button with menu icon" [matMenuTriggerFor]="menu">
+    <button click="addImage()" [matMenuTriggerFor]="menu">
       <img class="icon" src="../assets/images/pokeBall.png" />
     </button>
     <span>Pokedex</span>
@@ -16,4 +17,30 @@
       <button mat-menu-item (click)="getGeneration(8)">Generation 8</button>
     </mat-menu>
   </mat-toolbar>
-</p>
+
+
+
+  <div class="cardContainer">
+
+    <mat-card class="example-card" *ngFor="let pokemon of pokemon">
+
+      <mat-card-header class="cardHeader">
+        <mat-card-title class="cardTitel">{{pokemon.name}}</mat-card-title>
+        <mat-card-subtitle></mat-card-subtitle>
+      </mat-card-header>
+      <img class="img" mat-card-image src="{{pokemon.image}}" alt="Photo of a {{pokemon.name}}">
+      <br>
+      <mat-card-content>
+        <p>
+          Photo of a {{pokemon.name}}
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+
+      </mat-card-actions>
+
+
+    </mat-card>
+
+  </div>
+</body>

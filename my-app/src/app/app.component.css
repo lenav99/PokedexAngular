@@ -5,3 +5,57 @@
     background: transparent;
     align-self: center;
 }
+
+.cardContainer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.example-card {
+    width: 250px;
+    height: 300px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    align-self: center;
+    align-items: center;
+    text-align: center;
+
+}
+
+.body {
+    background-color: dimgray;
+    margin: 0px !important;
+    padding: 0px !important;
+    overflow-x: hidden;
+}
+
+.img {
+
+    width: 230px;
+    height: 230px;
+    margin: auto;
+    align-self: center;
+    align-items: center;
+    text-align: center;
+
+}
+
+.cardHeader {
+
+    justify-content: center;
+    align-self: center;
+    align-items: center;
+    text-align: center;
+
+}
+
+.cardTitel {
+    align-self: center;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
