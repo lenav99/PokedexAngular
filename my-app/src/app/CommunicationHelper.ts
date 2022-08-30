@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { GenerationInformation } from "src/Entities/Generationinformation";
 import { Pokemon } from "src/Entities/Pokemon";
+import { PokemonInformation } from "src/Entities/PokemonInformation";
 
 export class CommunicationHelper {
 
@@ -15,9 +16,9 @@ export class CommunicationHelper {
 
                 pokemonInGeneration.forEach((pokemonFromApi: any) => {
                     const pokemonNameInUpperCase = pokemonFromApi.name.charAt(0).toUpperCase() + pokemonFromApi.name.slice(1);
-                    this.getId(pokemonFromApi.url, http).then((id: number) => {
-                        this.getImage(id, http).then((imageString: string) => {
-                            const newPokemon = new Pokemon(id, pokemonNameInUpperCase, pokemonFromApi.url, imageString);
+                    this.getInformation(pokemonFromApi.url, http).then((pokemonInfo: PokemonInformation) => {
+                        this.getImage(pokemonInfo.pokeId, http).then((imageString: string) => {
+                            const newPokemon = new Pokemon(pokemonInfo.pokeId, pokemonNameInUpperCase, pokemonFromApi.url, imageString, pokemonInfo.pokeTypes);
                             pokemonFromGeneration.push(newPokemon);
                             imageReceived = imageReceived + 1;
 
@@ -35,11 +36,18 @@ export class CommunicationHelper {
 
         })
     }
-    private getId(url: string, http: HttpClient): Promise<number> {
+    private getInformation(url: string, http: HttpClient): Promise<PokemonInformation> {
         return new Promise((resolve, reject) => {
             http.get<any>(url).subscribe((data: any) => {
-                resolve(data.id);
+                http.get<any>(`https://pokeapi.co/api/v2/pokemon/${data.id}/`).subscribe((data: any) => {
 
+                    const typeForPokemon: string[] = [];
+                    data.types.forEach((element: any) => {
+                        typeForPokemon.push(element.type.name);
+                    });
+
+                    resolve(new PokemonInformation(data.id, typeForPokemon));
+                })
             })
         })
     }

@@ -31,6 +31,8 @@ export class AppComponent {
         return a.pokeId - b.pokeId;
       });
 
+      console.log(this.pokemon);
+
 
     }).catch(() => {
       console.error("Error");
