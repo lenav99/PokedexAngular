@@ -2,8 +2,8 @@
 
   <mat-toolbar color="primary">
 
-    <button click="addImage()" [matMenuTriggerFor]="menu">
-      <img class="icon" src="../assets/images/pokeBall.png" />
+    <button mat-icon-button color="accent" [matMenuTriggerFor]="menu">
+      <mat-icon>menu</mat-icon>
     </button>
     <span>Pokedex</span>
     <mat-menu #menu="matMenu">
