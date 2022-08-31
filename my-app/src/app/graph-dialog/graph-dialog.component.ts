@@ -40,33 +40,48 @@ export class GraphDialogComponent implements OnInit {
       series: [
         {
           name: "My-series",
-          data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
+          data: [2, 2, 0, 0, 1, 0, 2, 0, 0]
+        },
+        {
+          name: "My-P",
+          data: [2, 2, 0, 0, 1, 0, 2, 0, 0]
         }
       ],
       chart: {
         height: 350,
-        type: "bar"
+        width: 700,
+        type: "bar",
+        foreColor: "#FFFFFF",
       },
       title: {
         text: "My First Angular Chart"
       },
       xaxis: {
-        categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"]
+        categories: ["Normal", "Fire", "Water", "Grass", "Electric", "Ice", "Fighting", "Poison", "Ground", "Flying", "Psychic", "Bug", "Rock", "Ghost", "Dark", "Dragon", "Steel", "Fairy"]
       }
     };
   }
 
+
+  damageRelation: DamageRelations = {} as DamageRelations
+
   ngOnInit(): void {
     const typeHelper = new CommunicationHelper()
 
-
-
+    const dataArray = [];
     this.data.pokeTypes.forEach(element => {
       typeHelper.getEffectivity(element, this.http).then((damageRelations: DamageRelations) => {
 
         console.log(damageRelations)
+        this.damageRelation = damageRelations
+
+        damageRelations.doubleDamageFrom.forEach(doubleDamageElement => {
+          //TODO
+        });
 
       }
+
+
 
 
       )
