@@ -23,6 +23,7 @@ export type ChartOptions = {
   chart: ApexChart;
   xaxis: ApexXAxis;
   title: ApexTitleSubtitle;
+  titleTwo: ApexTitleSubtitle;
 };
 
 
@@ -41,11 +42,11 @@ export class GraphDialogComponent implements OnInit {
     this.chartOptions = {
       series: [
         {
-          name: "My-series",
+          name: "Type 1",
           data: []
         },
         {
-          name: "My-P",
+          name: "Type 2",
           data: []
         }
       ],
@@ -56,14 +57,18 @@ export class GraphDialogComponent implements OnInit {
         foreColor: "#FFFFFF",
       },
       title: {
-        text: "My First Angular Chart"
+        text: "Damage",
+      },
+
+      titleTwo: {
+        text: "Sensitivity"
       },
       xaxis: {
         categories: ["Normal", "Fire", "Water", "Grass", "Electric", "Ice", "Fighting", "Poison", "Ground", "Flying", "Psychic", "Bug", "Rock", "Ghost", "Dark", "Dragon", "Steel", "Fairy"]
       }
-    };
-  }
 
+    }
+  }
 
   damageRelation: DamageRelations = {} as DamageRelations
 
@@ -88,15 +93,38 @@ export class GraphDialogComponent implements OnInit {
           if (index != -1) {
             dataEffective[index] = 2
           }
-        });
 
-        //ES geht nicht:/
-        this.chartOptions.series[0].data = dataEffective
-        this.chartOptions.series[1].data = dataEffective
-        this.isDataLoaded = true;
+          damageRelations.halfDamageFrom.forEach(halfDamageElement => {
+            const index = this.chartOptions.xaxis.categories.findIndex((element: any) => element == halfDamageElement.charAt(0).toUpperCase() + halfDamageElement.slice(1))
+
+            console.log(index);
+
+            if (index != -1) {
+              dataEffective[index] = 0.5
+            }
+
+
+            damageRelations.noDamageFrom.forEach(noDamageElement => {
+              const index = this.chartOptions.xaxis.categories.findIndex((element: any) => element == noDamageElement.charAt(0).toUpperCase() + noDamageElement.slice(1))
+
+              console.log(index);
+
+              if (index != -1) {
+                dataEffective[index] = 0
+              }
+
+
+            });
+
+          })
+          this.chartOptions.series[0].data = dataEffective
+          this.chartOptions.series[1].data = dataEffective
+          this.isDataLoaded = true;
+        })
       }
       )
-    })
+    }
+    )
 
 
     //this.chartOptions.series[0].data.push(1) -> damageFrom
