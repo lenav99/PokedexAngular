@@ -32,6 +32,8 @@ export type ChartOptions = {
   styleUrls: ['./graph-dialog.component.css']
 })
 export class GraphDialogComponent implements OnInit {
+
+  isDataLoaded: boolean = false;
   @ViewChild("chart") chart: ChartComponent = {} as ChartComponent;
   public chartOptions: Partial<ChartOptions> | any;
 
@@ -40,11 +42,11 @@ export class GraphDialogComponent implements OnInit {
       series: [
         {
           name: "My-series",
-          data: [2, 2, 0, 0, 1, 0, 2, 0, 0]
+          data: []
         },
         {
           name: "My-P",
-          data: [2, 2, 0, 0, 1, 0, 2, 0, 0]
+          data: []
         }
       ],
       chart: {
@@ -68,6 +70,9 @@ export class GraphDialogComponent implements OnInit {
   ngOnInit(): void {
     const typeHelper = new CommunicationHelper()
 
+    const dataEffective = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+
+
     const dataArray = [];
     this.data.pokeTypes.forEach(element => {
       typeHelper.getEffectivity(element, this.http).then((damageRelations: DamageRelations) => {
@@ -76,18 +81,32 @@ export class GraphDialogComponent implements OnInit {
         this.damageRelation = damageRelations
 
         damageRelations.doubleDamageFrom.forEach(doubleDamageElement => {
-          //TODO
+          const index = this.chartOptions.xaxis.categories.findIndex((element: any) => element == doubleDamageElement.charAt(0).toUpperCase() + doubleDamageElement.slice(1))
+
+          console.log(index);
+
+          if (index != -1) {
+            dataEffective[index] = 2
+          }
         });
 
+        //ES geht nicht:/
+        this.chartOptions.series[0].data = dataEffective
+        this.chartOptions.series[1].data = dataEffective
+        this.isDataLoaded = true;
       }
-
-
-
-
       )
     })
 
 
+    //this.chartOptions.series[0].data.push(1) -> damageFrom
+    //this.chartOptions.series[1].data.push(1) -> damageTo
+    // 1.ich mach ein array das insagesamt 18 Einser hat --> die Kategporien 
+    // 2. iteration über doubleDamageFrom, halfDamageFrom, noDamageFrom
+    // 3. prüfen: index aktuelles Element in categories (this.chartOptions.xaxis.categories --> bekommst index zurück
+    //4. Array unter 1 erstellt an position von 3. = 2 
+    //alle vier schritte für half mit 0,5 
+    //alle vier schritte für half mit 0  
   }
 
 
