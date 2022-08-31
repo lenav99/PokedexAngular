@@ -12,6 +12,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatCardModule } from '@angular/material/card';
 import { GraphDialogComponent } from './graph-dialog/graph-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 
 
@@ -28,7 +30,10 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatButtonModule,
     MatToolbarModule,
     MatIconModule,
+    FormsModule,
     MatMenuModule,
+    ReactiveFormsModule,
+    NgApexchartsModule,
     HttpClientModule,
     MatCardModule,
     MatDialogModule,

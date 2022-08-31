@@ -7,6 +7,9 @@ import { PokemonInformation } from 'src/Entities/PokemonInformation';
 import { CommunicationHelper } from '../CommunicationHelper';
 
 
+
+
+
 @Component({
   selector: 'app-graph-dialog',
   templateUrl: './graph-dialog.component.html',
@@ -15,7 +18,9 @@ import { CommunicationHelper } from '../CommunicationHelper';
 export class GraphDialogComponent implements OnInit {
 
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Pokemon, private http: HttpClient) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: Pokemon, private http: HttpClient) {
+
+  }
 
   ngOnInit(): void {
     const typeHelper = new CommunicationHelper()
