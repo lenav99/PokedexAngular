@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Pokemon } from 'src/Entities/Pokemon';
 import { PokemonInformation } from 'src/Entities/PokemonInformation';
 import { CommunicationHelper } from './CommunicationHelper';
+import { GraphDialogComponent } from './graph-dialog/graph-dialog.component';
 
 
 @Component({
@@ -15,7 +17,7 @@ export class AppComponent {
 
   title = 'my-app';
   public pokemon: Pokemon[] = []
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, public dialog: MatDialog) {
   }
 
   getGeneration(id: number) {
@@ -32,7 +34,7 @@ export class AppComponent {
         return a.pokeId - b.pokeId;
       });
 
-      console.log(this.pokemon);
+
 
 
     }).catch(() => {
@@ -44,7 +46,6 @@ export class AppComponent {
 
   displayTypes(pokemon: Pokemon) {
 
-    console.log(pokemon.pokeTypes)
 
     let typeString = "";
     pokemon.pokeTypes.forEach(element => {
@@ -60,4 +61,20 @@ export class AppComponent {
 
 
   }
+
+
+
+  openDialog(clickedPokemon: Pokemon) {
+    this.dialog.open(GraphDialogComponent, {
+      data: clickedPokemon
+    });
+
+
+  }
+
+
 }
+
+
+
+

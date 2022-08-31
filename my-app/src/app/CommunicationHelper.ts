@@ -1,4 +1,5 @@
 import { HttpClient } from "@angular/common/http";
+import { DamageRelations } from "src/Entities/DamageRelations";
 import { GenerationInformation } from "src/Entities/Generationinformation";
 import { Pokemon } from "src/Entities/Pokemon";
 import { PokemonInformation } from "src/Entities/PokemonInformation";
@@ -96,5 +97,56 @@ export class CommunicationHelper {
     }
 
 
+    getEffectivity(name: string, http: HttpClient): Promise<DamageRelations> {
+        return new Promise((resolve, reject) => {
+            http.get<any>(`https://pokeapi.co/api/v2/type/${name}/`).subscribe((data: any) => {
+
+                const damageRelationsData = data.damage_relations
+
+                const doubleDamageFrom: string[] = [];
+                const doubleDamageTo: string[] = [];
+                const halfDamageFrom: string[] = [];
+                const halfDamageTo: string[] = [];
+                const noDamgeFrom: string[] = [];
+                const noDamageTo: string[] = [];
+
+
+                damageRelationsData.double_damage_from.forEach((element: any) => {
+                    doubleDamageFrom.push(element.name)
+                });
+
+                damageRelationsData.double_damage_to.forEach((element: any) => {
+                    doubleDamageTo.push(element.name)
+                });
+
+                damageRelationsData.half_damage_from.forEach((element: any) => {
+                    halfDamageFrom.push(element.name)
+                });
+
+                damageRelationsData.half_damage_to.forEach((element: any) => {
+                    halfDamageTo.push(element.name)
+                });
+
+                damageRelationsData.no_damage_from.forEach((element: any) => {
+                    noDamgeFrom.push(element.name)
+                });
+
+                damageRelationsData.no_damage_to.forEach((element: any) => {
+                    noDamageTo.push(element.name)
+                });
+
+
+                const damageRelations = new DamageRelations(doubleDamageFrom, doubleDamageTo, halfDamageFrom, halfDamageTo, noDamgeFrom, noDamageTo)
+
+
+
+                resolve(damageRelations);
+
+
+            })
+
+
+        })
+    }
 
 }

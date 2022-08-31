@@ -22,7 +22,7 @@
 
   <div class="cardContainer">
 
-    <mat-card class="example-card" *ngFor="let pokemon of pokemon">
+    <mat-card class="example-card" *ngFor="let pokemon of pokemon" (click)="openDialog(pokemon)">
 
       <mat-card-header class="cardHeader">
         <mat-card-title class="cardTitel">{{pokemon.name}}</mat-card-title>

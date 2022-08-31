@@ -10,13 +10,17 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { HttpClientModule } from '@angular/common/http';
 import { MatCardModule } from '@angular/material/card';
+import { GraphDialogComponent } from './graph-dialog/graph-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    GraphDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -27,6 +31,7 @@ import { MatCardModule } from '@angular/material/card';
     MatMenuModule,
     HttpClientModule,
     MatCardModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
