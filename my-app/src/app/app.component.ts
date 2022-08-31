@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Pokemon } from 'src/Entities/Pokemon';
+import { PokemonInformation } from 'src/Entities/PokemonInformation';
 import { CommunicationHelper } from './CommunicationHelper';
 
 
@@ -41,8 +42,22 @@ export class AppComponent {
 
 
 
+  displayTypes(pokemon: Pokemon) {
+
+    console.log(pokemon.pokeTypes)
+
+    let typeString = "";
+    pokemon.pokeTypes.forEach(element => {
+      typeString != "" ? typeString = typeString + ", " + element.charAt(0).toUpperCase() + element.slice(1) : typeString = element.charAt(0).toUpperCase() + element.slice(1)
 
 
+
+
+    });
+
+    return typeString;
+
+
+
+  }
 }
-
-
